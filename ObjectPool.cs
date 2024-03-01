@@ -1,14 +1,14 @@
 using System;
 using System.Collections.Generic;
+using UnityEngine;
 
 /// <summary>
-/// Represents an object pool that manages objects of type T.
+/// Represents an object pool that manages GameObject instances.
 /// </summary>
-/// <typeparam name="T">The type of objects managed by the pool.</typeparam>
-public class ObjectPool<T>
+public class ObjectPool
 {
-    private readonly T prefab;
-    private readonly List<T> pool = new();
+    private readonly GameObject prefab;
+    private readonly List<GameObject> pool = new();
 
     /// <summary>
     /// Event invoked when an object is obtained from the pool.
@@ -30,7 +30,7 @@ public class ObjectPool<T>
     /// </summary>
     /// <param name="prefab">The prefab used to create objects in the pool.</param>
     /// <param name="initialPoolSize">The initial size of the pool.</param>
-    public ObjectPool(T prefab, int initialPoolSize)
+    public ObjectPool(GameObject prefab, int initialPoolSize)
     {
         this.prefab = prefab;
         PopulatePool(initialPoolSize);
@@ -52,9 +52,9 @@ public class ObjectPool<T>
     /// Creates a new object and adds it to the pool.
     /// </summary>
     /// <returns>The newly created object.</returns>
-    private T CreateObject()
+    private GameObject CreateObject()
     {
-        T obj = prefab;
+        GameObject obj = UnityEngine.Object.Instantiate(prefab);
         pool.Add(obj);
         ObjectCreat?.Invoke();
         return obj;
@@ -64,9 +64,9 @@ public class ObjectPool<T>
     /// Retrieves an object from the pool.
     /// </summary>
     /// <returns>The object retrieved from the pool.</returns>
-    public T Get()
+    public GameObject Get()
     {
-        foreach (T obj in pool)
+        foreach (GameObject obj in pool)
         {
             if (!pool.Contains(obj))
             {
@@ -76,7 +76,7 @@ public class ObjectPool<T>
             return obj;
         }
 
-        T newObj = CreateObject();
+        GameObject newObj = CreateObject();
         ObjectGet?.Invoke();
         return newObj;
     }
@@ -85,7 +85,7 @@ public class ObjectPool<T>
     /// Returns an object to the pool.
     /// </summary>
     /// <param name="obj">The object to be returned to the pool.</param>
-    public void Return(T obj)
+    public void Return(GameObject obj)
     {
         if (!pool.Contains(obj))
         {

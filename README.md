@@ -1,63 +1,52 @@
-# Unity Simple Object Pool
+# Unity Simple ObjectPool
 
-## Introduction
-
-Unity Simple Object Pool is a lightweight object pooling utility for Unity game developers. Object pooling is a technique commonly used to optimize memory usage and performance in games by recycling objects instead of instantiating and destroying them repeatedly. This utility provides a simple and efficient way to manage objects of any type within your Unity projects.
+Unity Simple ObjectPool is a lightweight object pooling system for Unity projects. Object pooling is a programming pattern used to manage and reuse game objects efficiently, particularly useful for managing frequently instantiated and destroyed objects such as bullets, enemies, and particles.
 
 ## Features
 
-- **Generic Object Pooling:** Easily manage objects of any type within your Unity projects.
-- **Efficient Memory Management:** Reduces memory allocation and performance overhead by reusing objects.
-- **Event System:** Event-based callbacks for object creation, retrieval, and return, allowing for easy integration with other systems.
-- **Customizable Pool Size:** Set the initial size of the object pool to suit your project's requirements.
+- **Efficient Object Management**: Reduce memory overhead and improve performance by reusing game objects instead of instantiating and destroying them frequently.
+- **Easy Integration**: Simple to use and integrate into any Unity project.
+- **Event System**: Provides events for tracking object retrieval, creation, and return to the pool.
+- **Customizable**: Easily customizable to suit specific project requirements.
 
 ## Installation
 
-To use Unity Simple Object Pool in your Unity project, simply download the `UnitySimpleObjectPool.cs` script and add it to your project's Assets folder.
+To use the Unity Simple ObjectPool in your Unity project, simply download or clone the repository and copy the `ObjectPool.cs` script into your project's Assets folder.
 
 ## Usage
 
-1. Create a prefab of the object you want to pool.
-2. Instantiate an instance of the `ObjectPool<T>` class, specifying the prefab and initial pool size.
-3. Use the `Get()` method to retrieve objects from the pool, and the `Return(T obj)` method to return objects to the pool when they are no longer needed.
+1. **Create Prefab**: Create a prefab of the GameObject you want to pool in your Unity project.
+2. **Instantiate ObjectPool**: Create an instance of the `ObjectPool` class by passing the prefab and initial pool size to the constructor.
+3. **Get Object**: Use the `Get()` method to retrieve an object from the pool. If the pool is empty, a new object will be instantiated.
+4. **Return Object**: Use the `Return()` method to return an object to the pool when it is no longer needed.
 
 ```csharp
-// Example usage
-ObjectPool<GameObject> objectPool = new ObjectPool<GameObject>(prefab, initialPoolSize);
-GameObject obj = objectPool.Get();
-// Use the object...
-objectPool.Return(obj);
-```
-
-## Example
-
-```csharp
-// Example usage with GameObjects
+// Example usage:
 using UnityEngine;
-using System.Collections;
 
 public class Example : MonoBehaviour
 {
     public GameObject prefab;
-    public int initialPoolSize = 10;
-    private ObjectPool<GameObject> objectPool;
+    private ObjectPool objectPool;
 
     void Start()
     {
-        objectPool = new ObjectPool<GameObject>(prefab, initialPoolSize);
+        objectPool = new ObjectPool(prefab, 10);
     }
 
     void Update()
     {
-        if (Input.GetKeyDown(KeyCode.Space))
-        {
-            GameObject obj = objectPool.Get();
-            // Use the object...
-        }
+        // Get an object from the pool
+        GameObject obj = objectPool.Get();
+
+        // Use the object...
+
+        // Return the object to the pool when no longer needed
+        objectPool.Return(obj);
     }
 }
 ```
 
 ## Contributing
 
-Contributions are welcome! If you have any ideas for improvements or new features, feel free to open an issue or submit a pull request.
+Contributions to Unity Simple ObjectPool are welcome! If you have any suggestions, bug reports, or feature requests, please create an issue or submit a pull request on GitHub.
