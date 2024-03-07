@@ -1,52 +1,47 @@
 # Unity Simple ObjectPool
 
-Unity Simple ObjectPool is a lightweight object pooling system for Unity projects. Object pooling is a programming pattern used to manage and reuse game objects efficiently, particularly useful for managing frequently instantiated and destroyed objects such as bullets, enemies, and particles.
+Unity Simple ObjectPool is a lightweight object pooling system for Unity, designed to efficiently manage and reuse GameObjects in your projects.
 
 ## Features
 
-- **Efficient Object Management**: Reduce memory overhead and improve performance by reusing game objects instead of instantiating and destroying them frequently.
-- **Easy Integration**: Simple to use and integrate into any Unity project.
-- **Event System**: Provides events for tracking object retrieval, creation, and return to the pool.
-- **Customizable**: Easily customizable to suit specific project requirements.
+- Efficient object pooling: Reuse GameObjects instead of instantiating and destroying them repeatedly.
+- Easy integration: Simply attach the provided ObjectPool script to your GameObject prefabs to start pooling.
+- Adjustable pool size: Set initial pool size and minimum amount to enlarge the pool as needed.
+- Events support: Subscribe to events for object creation, retrieval, and return.
 
 ## Installation
 
-To use the Unity Simple ObjectPool in your Unity project, simply download or clone the repository and copy the `ObjectPool.cs` script into your project's Assets folder.
+1. Clone or download the repository.
+2. Import the ObjectPool.cs script into your Unity project.
+3. Attach the ObjectPool script to your GameObject prefabs.
+4. Configure initial pool size and other parameters as needed.
 
 ## Usage
 
-1. **Create Prefab**: Create a prefab of the GameObject you want to pool in your Unity project.
-2. **Instantiate ObjectPool**: Create an instance of the `ObjectPool` class by passing the prefab and initial pool size to the constructor.
-3. **Get Object**: Use the `Get()` method to retrieve an object from the pool. If the pool is empty, a new object will be instantiated.
-4. **Return Object**: Use the `Return()` method to return an object to the pool when it is no longer needed.
+1. Attach the ObjectPool script to your GameObject prefabs that you want to pool.
+2. Configure initial pool size and other parameters through the Unity Inspector.
+3. Use the `Get()` method to retrieve objects from the pool.
+4. Use the `Return()` method to return objects to the pool when no longer needed.
+
+## Example
 
 ```csharp
-// Example usage:
-using UnityEngine;
+// Instantiate an object pool
+ObjectPool objectPool = new ObjectPool(prefab, initialPoolSize);
 
-public class Example : MonoBehaviour
-{
-    public GameObject prefab;
-    private ObjectPool objectPool;
+// Retrieve an object from the pool
+GameObject obj = objectPool.Get();
 
-    void Start()
-    {
-        objectPool = new ObjectPool(prefab, 10);
-    }
+// Do something with the object
 
-    void Update()
-    {
-        // Get an object from the pool
-        GameObject obj = objectPool.Get();
-
-        // Use the object...
-
-        // Return the object to the pool when no longer needed
-        objectPool.Return(obj);
-    }
-}
+// Return the object to the pool
+objectPool.Return(obj);
 ```
+
+## License
+
+This project is licensed under the GNU General Public License v3.0. See the [LICENSE](LICENSE) file for details.
 
 ## Contributing
 
-Contributions to Unity Simple ObjectPool are welcome! If you have any suggestions, bug reports, or feature requests, please create an issue or submit a pull request on GitHub.
+Contributions are welcome! Please feel free to submit issues or pull requests.
