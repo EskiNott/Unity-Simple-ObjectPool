@@ -13,7 +13,7 @@ Unity Simple ObjectPool is a lightweight object pooling system for Unity, design
 
 1. Clone or download the repository.
 2. Import the ObjectPool.cs script into your Unity project.
-3. Attach the ObjectPool script to your GameObject prefabs.
+3. Initiate the ObjectPool.
 4. Configure initial pool size and other parameters as needed.
 
 ## Usage
